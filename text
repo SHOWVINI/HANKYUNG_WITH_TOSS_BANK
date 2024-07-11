@@ -1,0 +1,8 @@
+LOAD DATA INFILE '/Users/khb43/Desktop/HANKYUNG_WITH_TOSS_BANK/week3_SQL/datasets/titanic/titanic.csv'
+INTO TABLE titanic
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(PassengerId, Survived, Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked);
+
