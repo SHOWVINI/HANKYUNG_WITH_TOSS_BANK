@@ -1,3 +1,5 @@
+#chapter 4장: 자동차 매출 데이터를 이용한 리포트 작성
+
 USE classicmodels;
 
 SELECT A.Orderdate, priceeach * quantityordered AS 매출액

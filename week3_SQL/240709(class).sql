@@ -1,3 +1,5 @@
+#chapter 2 SQL 기초 문법:
+
 USE classicmodels; -- 해당 Database를 사용하겠음
 
 -- 이 구문은 classicmodels라는 데이터베이스를 사용하겠다는 것을 의미합니다. 
