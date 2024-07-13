@@ -13,5 +13,6 @@ gdown
 xlsxwriter
 sqlalchemy
 beautifulsoup4
+tabulate
 mysql-connector-python
 pymysql

@@ -9,9 +9,7 @@ SELECT CUSTOMER_CD, POINT_MEMO, POINT
 FROM   TB_POINT;
 
 -- 연습문제 3. SELECT 조건  고객포인트 테이블에서 고객코드, 포인트내용, 포인트 필드 제목을 한글로 출력한다. 
-SELECT CUSTOMER_CD AS "*고객코드", 
-       POINT_MEMO AS "포인트 내용",
-       POINT AS 포인트
+SELECT CUSTOMER_CD AS "*고객코드", POINT_MEMO AS "포인트 내용", POINT AS 포인트
 FROM   TB_POINT;
 
 -- 연습문제 4. WHERE 조건
@@ -38,27 +36,24 @@ SELECT * FROM TB_GRADE;
 
 SELECT *
 FROM   TB_GRADE
-WHERE  (CLASS_CD = 'A' OR  CLASS_CD = 'B') OR 
-        (KOR >= 80 AND ENG >= 80 AND MAT >= 80);
+WHERE  (CLASS_CD = 'A' OR  CLASS_CD = 'B') OR (KOR >= 80 AND ENG >= 80 AND MAT >= 80);
         
 -- 연습문제 7. WHERE BETWEEN 조건
 -- 고객포인트 테이블에서 등록일시가 2018년 내에 있고, 포인트가 10,000에서 50,000 포인트 범위의 데이터를 검색한다.
 SELECT *
 FROM   TB_POINT
-WHERE  REG_DTTM BETWEEN '20180101000000' AND '20181231235959'
-AND    POINT BETWEEN 10000 AND 50000;
+WHERE  REG_DTTM BETWEEN '20180101000000' 
+	AND '20181231235959' 
+	AND POINT BETWEEN 10000 AND 50000;
 
 -- 연습문제 8. 비교연산자
 -- 고객 테이블에서 누적포인트가 20,000 이상인 1980년대 남성 고객의 고객코드, 고객명, 성별, 생년월일, 누적포인트를 검색한다.
-SELECT CUSTOMER_CD,
-       CUSTOMER_NM,
-       MW_FLG,
-       BIRTH_DAY,
-       TOTAL_POINT
+SELECT CUSTOMER_CD, CUSTOMER_NM, MW_FLG, BIRTH_DAY, TOTAL_POINT
 FROM   TB_CUSTOMER
 WHERE  TOTAL_POINT >= 20000
-AND    BIRTH_DAY >= '19800101' AND BIRTH_DAY <= '19891231'
-AND    MW_FLG = 'M';
+	AND    BIRTH_DAY >= '19800101' 
+    AND BIRTH_DAY <= '19891231'
+	AND    MW_FLG = 'M';
 
 -- 연습문제 9. LIKE
 -- 고객 테이블에서 남성이면서 생년월일 중 월이 5, 6, 7월인 고객의 고객코드, 고객명, 성별, 생년월일, 누적포인트를 검색한다.
@@ -69,23 +64,22 @@ SELECT CUSTOMER_CD,
        TOTAL_POINT
 FROM   TB_CUSTOMER
 WHERE  MW_FLG = 'M'
-AND    (BIRTH_DAY LIKE '____05__'
-OR      BIRTH_DAY LIKE '____06__'
-OR      BIRTH_DAY LIKE '____07__');
+	AND    (BIRTH_DAY LIKE '____05__'
+	OR      BIRTH_DAY LIKE '____06__'
+	OR      BIRTH_DAY LIKE '____07__');
 
 -- 연습문제 10. LIKE
 -- 고객 테이블에서 고객코드가 ‘2017’로 시작하면서 남성인 고객 또는 고객코드가 ‘2019’로 시작하면서 여성인 고객을 구하고, 그 중 누적포인트가 30000 이하인 데이터를 검색한다.
-SELECT CUSTOMER_CD,
-       CUSTOMER_NM,
-       MW_FLG,
-       BIRTH_DAY,
-       TOTAL_POINT
+SELECT CUSTOMER_CD, CUSTOMER_NM, MW_FLG, BIRTH_DAY, TOTAL_POINT
 FROM   TB_CUSTOMER
-WHERE  ((CUSTOMER_CD LIKE '2017%'
-AND      MW_FLG = 'M')
-OR      (CUSTOMER_CD LIKE '2019%'
-AND      MW_FLG = 'W'))
-AND    TOTAL_POINT <= 30000;
+WHERE  (
+			(
+			CUSTOMER_CD LIKE '2017%'AND MW_FLG = 'M'
+            ) 
+            OR 
+            (CUSTOMER_CD LIKE '2019%' AND MW_FLG = 'W'
+            )
+		) AND TOTAL_POINT <= 30000;
 
 -- 연습문제 11. IN 연산자 
 -- 품목정보 테이블에서 품목코드가 'S01’, ‘S04’, ‘S06’, ‘S10’인 데이터를 검색한다.
@@ -97,23 +91,26 @@ WHERE  ITEM_CD IN ('S01','S04','S06','S10');
 -- 고객포인트 테이블에서 고객코드가 ‘2017042’ 또는 ‘2018087’ 또는 '2019095' 이면서 포인트내용에 ‘구매’ 문자가 포함된 데이터를 검색한다.
 SELECT * 
 FROM   TB_POINT
-WHERE  CUSTOMER_CD IN ('2017042','2018087','2019095')
-AND    POINT_MEMO LIKE '%구매%';
+WHERE  CUSTOMER_CD 
+	IN ('2017042','2018087','2019095') 
+	AND POINT_MEMO LIKE '%구매%';
 
 -- 연습문제 13. ORDER BY 
 -- 고객포인트 테이블에서 등록일이 '2019＇년이고 포인트내용에 '구매'가 포함된 데이터를 포인트가 큰 순서대로 검색한다.
 SELECT *
 FROM   TB_POINT
 WHERE  REG_DTTM LIKE '2019%'
-AND    POINT_MEMO LIKE '%구매%'
-ORDER  BY POINT DESC;
+	AND    POINT_MEMO LIKE '%구매%'
+	ORDER BY POINT DESC;
 
 -- 연습문제 14. ORDER BY 
 -- 성적 테이블에서 ‘B’반의 국어, 영어, 수학 점수의 합계가 높은 순으로 검색한다.
 UPDATE TB_GRADE
-SET    TOT = KOR + ENG + MAT,
-       AVG = ROUND((KOR + ENG + MAT) / 3,1);
+SET    TOT = KOR + ENG + MAT, 
+	AVG = ROUND((KOR + ENG + MAT) / 3,1);
+    
 SELECT * FROM TB_GRADE;
+
 
 SELECT KOR, ENG, MAT, TOT AS 합계
 FROM   TB_GRADE
@@ -127,10 +124,8 @@ SELECT SALES_DT,
        SUM(SALES_COUNT) AS "총판매수"
 FROM   TB_SALES
 WHERE  SALES_DT IN ('20190802','20190803')
-GROUP  BY SALES_DT,
-          PRODUCT_NM
-ORDER  BY SALES_DT,
-          PRODUCT_NM;
+	GROUP  BY SALES_DT, PRODUCT_NM
+	ORDER  BY SALES_DT, PRODUCT_NM;
 
 -- 연습문제 16. DISTINCT 
 -- 판매 테이블에서 '20190801＇에서 ‘20190802’ 기간에 판매한 상품명을 가나다 순으로 중복없이 검색한다.
@@ -140,7 +135,8 @@ WHERE  SALES_DT BETWEEN '20190801' AND '20190802'
 ORDER  BY PRODUCT_NM;
 
 -- 연습문제 17. JOIN
--- 고객 테이블의 고객코드가 2019069 데이터를 고객포인트 테이블과 연관 검색하여 고객 테이블에서는 고객코드, 고객명, 성별을 검색한 후 고객포인트 테이블에서는 일련번호, 포인트내용, 포인트를 검색한다.
+-- 고객 테이블의 고객코드가 2019069 데이터를 고객포인트 테이블과 연관 검색하여 
+-- 고객 테이블에서는 고객코드, 고객명, 성별을 검색한 후 고객포인트 테이블에서는 일련번호, 포인트내용, 포인트를 검색한다.
 -- 답안 1. 
 
 SELECT CU.CUSTOMER_CD,
@@ -149,20 +145,17 @@ SELECT CU.CUSTOMER_CD,
        PT.SEQ_NO,
        PT.POINT_MEMO,
        PT.POINT
-FROM   TB_CUSTOMER CU,
-       TB_POINT PT
-WHERE  CU.CUSTOMER_CD = '2019069'
-AND    CU.CUSTOMER_CD = PT.CUSTOMER_CD;
-
+FROM   TB_CUSTOMER as CU, TB_POINT as PT
+WHERE  CU.CUSTOMER_CD = '2019069' AND CU.CUSTOMER_CD = PT.CUSTOMER_CD;
+-- 답안 2. 
 SELECT CU.CUSTOMER_CD,
        CU.CUSTOMER_NM,
        CU.MW_FLG,
        PT.SEQ_NO,
        PT.POINT_MEMO,
        PT.POINT
-FROM   TB_CUSTOMER CU
-JOIN   TB_POINT PT
-ON     CU.CUSTOMER_CD = PT.CUSTOMER_CD
+FROM   TB_CUSTOMER as CU 
+	JOIN TB_POINT as PT ON CU.CUSTOMER_CD = PT.CUSTOMER_CD
 WHERE  CU.CUSTOMER_CD = '2019069';
 
 -- 연습문제 18. CASE
